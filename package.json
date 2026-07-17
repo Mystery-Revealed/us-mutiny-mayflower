@@ -1,0 +1,18 @@
+{
+  "name": "us-mutiny-mayflower",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Mutiny on the Mayflower — Unit 1 U.S. History dialogue game (TEKS 8.3B, 8.1B, 8.15A, 8.19A). Play William Bradford on the storm-blown Mayflower, November 1620, and talk Separatists and Strangers into signing the Mayflower Compact — where every right answer is one of the Compact's real ideas in kid words. Server-authoritative Socket.IO backend with a live Teacher Command Center.",
+  "comment": "No npm workspaces: this drive is exFAT, which cannot host the symlinks/junctions workspace linking requires. server/ and client/ install independently; `npm install` here cascades via postinstall.",
+  "scripts": {
+    "postinstall": "npm install --prefix server --no-fund --no-audit && npm install --prefix client --no-fund --no-audit",
+    "dev:server": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "test": "npm test --prefix server",
+    "build": "npm run build --prefix client",
+    "start": "node server/src/index.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
