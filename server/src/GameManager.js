@@ -88,11 +88,12 @@ export class GameManager {
     session.students.set(studentId, student);
     this.registry.touch(joinCode);
 
-    const emits = [toTeacher(joinCode, 'lobby:update', this.roster(session))];
+    const emits = [];
     // Solo players don't wait for pairing — they start as soon as they're approved.
     if (student.approved && student.mode === 'solo') {
       emits.push(...this._startSoloMatch(session, game, student));
     }
+    emits.push(toTeacher(joinCode, 'lobby:update', this.roster(session)));
     return { studentId, approved: student.approved, emits };
   }
 

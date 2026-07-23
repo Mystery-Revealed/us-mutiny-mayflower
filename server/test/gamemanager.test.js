@@ -97,6 +97,17 @@ test('a student joins, the match begins on join, and all-right earns 100% and "4
   assert.equal(roster.students[0].accuracy, 100);
 });
 
+test('the teacher roster reflects in_progress immediately on join, not not_started', () => {
+  const manager = new GameManager();
+  const joinCode = makeSession(manager);
+  const res = join(manager, joinCode, 'Ana');
+
+  const lobbyUpdates = eventsOf(res.emits, 'lobby:update');
+  assert.equal(lobbyUpdates.length, 1, 'exactly one lobby:update on join');
+  const roster = lobbyUpdates[0].payload;
+  assert.equal(roster.students[0].status, 'in_progress', 'solo match already started when the teacher sees this student');
+});
+
 test('every resolution carries a verdict but never the running answer key', () => {
   const manager = new GameManager();
   const joinCode = makeSession(manager);
